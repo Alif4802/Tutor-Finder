@@ -1,8 +1,8 @@
 <?php
-use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\TermsController;
@@ -52,12 +52,15 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/terms', [TermsController::class, 'index'])->name('terms');
 Route::get('/privacy', [PrivacyController::class, 'index'])->name('privacy');
 
-
+Route::get('/search', [SearchController::class, 'index'])->name('search.index');
+Route::post('/search', [SearchController::class, 'search'])->name('search.search');
 Route::get('/sessions', [SessionsController::class, 'index'])->name('sessions');
 Route::get('/sessions/manage', [SessionsController::class, 'manageBookings'])->name('sessions.manageBookings');
 Route::get('/sessions/reminders', [SessionsController::class, 'reminders'])->name('sessions.reminders');
 Route::post('/sessions/accept/{bookingId}', [SessionsController::class, 'acceptBooking'])->name('sessions.acceptBooking');
 Route::post('/sessions/reject/{bookingId}', [SessionsController::class, 'rejectBooking'])->name('sessions.rejectBooking');
 Route::get('/sessions/availability', [SessionsController::class, 'showAvailability'])->name('sessions.availability');
+Route::post('/create-payment-intent', [PaymentController::class, 'createPaymentIntent']);
+Route::post('/process-payment', [PaymentController::class, 'processPayment']);
 
 require __DIR__.'/auth.php';
